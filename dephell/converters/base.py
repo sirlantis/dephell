@@ -122,6 +122,8 @@ class BaseConverter:
         return self._make_path_absolute(root=root, path=path)
 
     def _make_dependency_path_relative(self, path: Path) -> Path:
+        if not path.is_absolute():
+            return path
         root = self.resolve_path or self._resolve_path or self.project_path or Path()
         root = root.resolve()
         return path.relative_to(str(root))
